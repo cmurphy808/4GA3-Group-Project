@@ -1,0 +1,86 @@
+---
+title: "The correlation between neighbourhood property crime rates and social factors in Toronto, ON"
+#subtitle: "A subtitle"
+#thanks: "Paper submitted to complete the requirements of ENVSOCTY 4GA3 Applied Spatial Statistics; with additional edits by Antonio Paez for this version."
+author:
+- name: Ashmitha Bala
+  student_number: 400148743
+- name: Cassis Lindsay
+  student_number: 400194383
+- name: CJ Murphy
+  student_number: 400195804
+- name: Hayat Shariff
+  student_number: 400258691
+- name: Zoe Spronk
+  student_number: 400231466
+subject: "ENVSOCTY 4GA3"
+abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with [INSERT FACTORS HERE] by neighbourhood. Data were retrieved from [INSERT DATA SOURCES HERE]."
+keywords: "crime, social factors, spatial analysis"
+date: "4/22/2020"
+output:
+  pdf_document:
+    # The project-template-default.tex file was minimally adapted from Steven V. Miller's template for academic manuscripts. See:
+    # http://svmiller.com/blog/2016/02/svm-r-markdown-manuscript/
+    # https://github.com/svmiller/svm-r-markdown-templates/blob/master/svm-latex-ms.tex
+    template: project-template-default.tex
+bibliography: [bibliography.bib, packages.bib]
+always_allow_html: true
+---
+
+<!--Chunks of code can have names; the chunk option "include" controls whether the chunk and its output are printed in the final document-->
+```{r load-packages, include=FALSE}
+library(sf) # working with simple features data
+library(spdep) # spatial regression analysis
+library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2)
+library(plotly) # interactive plotting
+library(viridis) # For colour palettes (colour blind friendly)
+```
+
+```{r write-package-bib, include=FALSE}
+# This function is used to write a bibliography for the `R` packages used in the paper
+knitr::write_bib(file = 'packages.bib')
+```
+
+<!--This create a page break, i.e., starts a new page-->
+<!--\newpage-->
+
+<!-- 
+To cite references in your bibliography.bib file, use [@item] if you want it to be cited in brackets, or @item if you want it to be cited as Name (year). If you want to cite various items in brackets, separate them with semicolons [@item1; @item2]
+-->
+
+<!--Use "#" for section headers-->
+<!-- Use * on both sides for bold text, and ** on both sides for italics -->
+
+# Introduction
+
+Insert Introduction Here
+
+# Background
+
+Insert Background Here
+
+# Study area
+
+Insert Study Area Here
+
+# Data
+
+Insert description of data here
+
+# Methods
+
+Insert methods here
+
+# Results
+
+Insert results here
+
+# Analysis
+
+Insert Analysis Here
+
+# Conclusion
+
+Insert Conclusion Here
+
+# References
