@@ -36,7 +36,7 @@ library(gridExtra) # for faceting with ggplot
 library(plotly) # interactive plotting
 library(sf) # working with simple features data
 library(spdep) # spatial regression analysis
-library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2, pipe operators, etc)
+library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2, magrittr (pipe operators), etc)
 library(viridis) # For colour palettes (colour blind friendly)
 ```
 
@@ -58,13 +58,13 @@ resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7")
 datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
  
 # load the first datastore resource as a sample
-crime_rates <- filter(datastore_resources, row_number()==1) %>% get_resource()
-crime_rates
+TO_crime <- filter(datastore_resources, row_number()==1) %>% get_resource()
+TO_crime
 ```
 
 ```{r aggregating-property-crime-rates, include = FALSE}
 #Rates are per 100k
-crime_rates <- crime_rates %>%
+TO_crime <- TO_crime %>%
   mutate(propertyCrime2014 = ((AutoTheft_2014 + BreakAndEnter_2014 + Robbery_2014 + TheftOver_2014)/F2020_Population_Projection)*100000,
          propertyCrime2015 = ((AutoTheft_2015 + BreakAndEnter_2015 + Robbery_2015 + TheftOver_2015)/F2020_Population_Projection)*100000,
          propertyCrime2016 = ((AutoTheft_2016 + BreakAndEnter_2016 + Robbery_2016 + TheftOver_2016)/F2020_Population_Projection)*100000,
@@ -106,7 +106,68 @@ Insert methods here
 
 # Results
 
-Insert results here
+```{r test-map}
+propCrime2020 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = propertyCrime2020),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Property Crime Rate 2020")
+
+propCrime2020
+```
+
+```{r 2020-split-crime}
+# Auto theft rate map
+auto2020 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = AutoTheft_Rate2020),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Auto Theft Rates, 2020")
+
+# breaking and entering map
+break_enter2020 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = BreakAndEnter_Rate2020),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Break and Enter Rates, 2020")
+
+# robbery map
+robbery2020 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = Robbery_Rate2020),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Robbery Rates, 2020")
+
+# theft over $2000 (grand larceny) map
+theftOver2020 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = TheftOver_Rate2020),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Theft Over $2000 Rates, 2020")
+
+# presentation of maps in one figure
+grid.arrange(auto2020, break_enter2020, robbery2020, theftOver2020)
+```
 
 # Analysis
 
