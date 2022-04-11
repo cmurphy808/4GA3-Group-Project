@@ -14,7 +14,7 @@ author:
 - name: Zoe Spronk
   student_number: 400231466
 subject: "ENVSOCTY 4GA3"
-abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with [INSERT FACTORS HERE] by neighbourhood. Data were retrieved from [INSERT DATA SOURCES HERE]."
+abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with [INSERT FACTORS HERE] by neighbourhood. Data were retrieved from The City of Toronto Open Data Portal."
 keywords: "crime, social factors, spatial analysis"
 date: "4/22/2020"
 output:
@@ -29,10 +29,14 @@ always_allow_html: true
 
 <!--Chunks of code can have names; the chunk option "include" controls whether the chunk and its output are printed in the final document-->
 ```{r load-packages, include=FALSE}
+library(dplyr) # for accessing Toronto Open Data
+library(opendatatoronto) # for accessing Toronto Open Data
+
+library(gridExtra) # for easier faceting with ggplot
+library(plotly) # interactive plotting
 library(sf) # working with simple features data
 library(spdep) # spatial regression analysis
 library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2)
-library(plotly) # interactive plotting
 library(viridis) # For colour palettes (colour blind friendly)
 ```
 
