@@ -32,17 +32,46 @@ always_allow_html: true
 library(dplyr) # for accessing Toronto Open Data
 library(opendatatoronto) # for accessing Toronto Open Data
 
-library(gridExtra) # for easier faceting with ggplot
+library(gridExtra) # for faceting with ggplot
 library(plotly) # interactive plotting
 library(sf) # working with simple features data
 library(spdep) # spatial regression analysis
-library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2)
+library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2, pipe operators, etc)
 library(viridis) # For colour palettes (colour blind friendly)
 ```
 
 ```{r write-package-bib, include=FALSE}
 # This function is used to write a bibliography for the `R` packages used in the paper
 knitr::write_bib(file = 'packages.bib')
+```
+
+
+```{r get-data, include = FALSE}
+# get package
+package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7")
+package
+ 
+# get all resources for this package
+resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7")
+ 
+# identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
+datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
+ 
+# load the first datastore resource as a sample
+crime_rates <- filter(datastore_resources, row_number()==1) %>% get_resource()
+crime_rates
+```
+
+```{r aggregating-property-crime-rates, include = FALSE}
+#Rates are per 100k
+crime_rates <- crime_rates %>%
+  mutate(propertyCrime2014 = ((AutoTheft_2014 + BreakAndEnter_2014 + Robbery_2014 + TheftOver_2014)/F2020_Population_Projection)*100000,
+         propertyCrime2015 = ((AutoTheft_2015 + BreakAndEnter_2015 + Robbery_2015 + TheftOver_2015)/F2020_Population_Projection)*100000,
+         propertyCrime2016 = ((AutoTheft_2016 + BreakAndEnter_2016 + Robbery_2016 + TheftOver_2016)/F2020_Population_Projection)*100000,
+         propertyCrime2017 = ((AutoTheft_2017 + BreakAndEnter_2017 + Robbery_2017 + TheftOver_2017)/F2020_Population_Projection)*100000,
+         propertyCrime2018 = ((AutoTheft_2018 + BreakAndEnter_2018 + Robbery_2018 + TheftOver_2018)/F2020_Population_Projection)*100000,
+         propertyCrime2019 = ((AutoTheft_2019 + BreakAndEnter_2019 + Robbery_2019 + TheftOver_2019)/F2020_Population_Projection)*100000,
+         propertyCrime2020 = ((AutoTheft_2020 + BreakAndEnter_2020 + Robbery_2020 + TheftOver_2020)/F2020_Population_Projection)*100000)
 ```
 
 <!--This create a page break, i.e., starts a new page-->
