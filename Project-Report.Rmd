@@ -63,7 +63,9 @@ TO_crime
 ```
 
 ```{r aggregating-property-crime-rates, include = FALSE}
-#Rates are per 100k
+# creating new columns in the df with aggregated property crime rates by year
+# auto theft + breaking and entering + robbery + theft over 5k
+# Rates are per 100k
 TO_crime <- TO_crime %>%
   mutate(propertyCrime2014 = ((AutoTheft_2014 + BreakAndEnter_2014 + Robbery_2014 + TheftOver_2014)/F2020_Population_Projection)*100000,
          propertyCrime2015 = ((AutoTheft_2015 + BreakAndEnter_2015 + Robbery_2015 + TheftOver_2015)/F2020_Population_Projection)*100000,
@@ -82,7 +84,7 @@ To cite references in your bibliography.bib file, use [@item] if you want it to 
 -->
 
 <!--Use "#" for section headers-->
-<!-- Use * on both sides for bold text, and ** on both sides for italics -->
+<!-- Use ** on both sides for bold text, and * on both sides for italics -->
 
 # Introduction
 
@@ -94,11 +96,19 @@ Insert Background Here
 
 # Study area
 
-Insert Study Area Here
+The relationship between property crime rates and social factors were studied across the census neighbourhoods of Toronto, ON, Canada (see Figure \ref{fig:toronto-neighbourhoods}). There are 140 neigbourhoods in total at the time of this study. *write more about why this area was selected*.
+
+```{r toronto-neighbourhoods, echo = FALSE, fig.cap={"\\label{fig:toronto-neighbourhoods} Census Neighbourhoods of Toronto, ON, Canada"}}
+# Map of Toronto neighbourhoods
+# Colour extracted from Viridis default palette to remain consistent with other figures produced
+ggplot(TO_crime) + 
+  geom_sf(color = "black", fill = "#5DC863FF", size = .3) + 
+  theme_bw()
+```
 
 # Data
 
-Insert description of data here
+The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R [@R-opendatatoronto]. The first dataset reports the raw value and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. Of the seven types of crime, three are violent crimes — assault, homicide, and shootings — and four are property crimes — auto theft, breaking and entering, robbery, and theft over $5000. The latter category is the focus of this study. *write here about the dataset used for social factors*
 
 # Methods
 
@@ -106,7 +116,9 @@ Insert methods here
 
 # Results
 
-```{r test-map}
+```{r 2020-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2020} Aggregated property crime rates by neighbourhood, 2020"}}
+# Map of aggregated property crime rates in 2020 
+# (auto theft, breaking and entering, robbery, and theft over 5k)
 propCrime2020 <- ggplot() +
   geom_sf(data = TO_crime,
           aes(fill = propertyCrime2020),
@@ -114,13 +126,14 @@ propCrime2020 <- ggplot() +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "Rate per 100k") +
-  theme_void() +
-  ggtitle("Property Crime Rate 2020")
+  theme_void()
 
 propCrime2020
 ```
 
-```{r 2020-split-crime}
+```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2020} Property crime rates by neighbourhood, 2020"}}
+# Maps of the 4 components of total property crime
+
 # Auto theft rate map
 auto2020 <- ggplot() +
   geom_sf(data = TO_crime,
@@ -130,7 +143,8 @@ auto2020 <- ggplot() +
                      option = "D",
                      name = "Rate per 100k") +
   theme_void() +
-  ggtitle("Auto Theft Rates, 2020")
+  ggtitle("Auto Theft") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # breaking and entering map
 break_enter2020 <- ggplot() +
@@ -141,7 +155,8 @@ break_enter2020 <- ggplot() +
                      option = "D",
                      name = "Rate per 100k") +
   theme_void() +
-  ggtitle("Break and Enter Rates, 2020")
+  ggtitle("Breaking and Entering") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # robbery map
 robbery2020 <- ggplot() +
@@ -152,9 +167,10 @@ robbery2020 <- ggplot() +
                      option = "D",
                      name = "Rate per 100k") +
   theme_void() +
-  ggtitle("Robbery Rates, 2020")
+  ggtitle("Robbery") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
-# theft over $2000 (grand larceny) map
+# theft over $5000 map
 theftOver2020 <- ggplot() +
   geom_sf(data = TO_crime,
           aes(fill = TheftOver_Rate2020),
@@ -163,7 +179,8 @@ theftOver2020 <- ggplot() +
                      option = "D",
                      name = "Rate per 100k") +
   theme_void() +
-  ggtitle("Theft Over $2000 Rates, 2020")
+  ggtitle("Theft Over $5000") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # presentation of maps in one figure
 grid.arrange(auto2020, break_enter2020, robbery2020, theftOver2020)
