@@ -1,5 +1,5 @@
 ---
-title: "The correlation between neighbourhood property crime rates and social factors in Toronto, ON"
+title: "Examining the Correlation between Neighbourhood Property Crime Rates and Social Factors in Toronto, ON"
 #subtitle: "A subtitle"
 #thanks: "Paper submitted to complete the requirements of ENVSOCTY 4GA3 Applied Spatial Statistics; with additional edits by Antonio Paez for this version."
 author:
@@ -29,6 +29,7 @@ always_allow_html: true
 
 <!--Chunks of code can have names; the chunk option "include" controls whether the chunk and its output are printed in the final document-->
 ```{r load-packages, include=FALSE}
+install.packages("opendatatoronto")
 library(dplyr) # for accessing Toronto Open Data
 library(opendatatoronto) # for accessing Toronto Open Data
 
@@ -74,6 +75,55 @@ TO_crime <- TO_crime %>%
          propertyCrime2018 = ((AutoTheft_2018 + BreakAndEnter_2018 + Robbery_2018 + TheftOver_2018)/F2020_Population_Projection)*100000,
          propertyCrime2019 = ((AutoTheft_2019 + BreakAndEnter_2019 + Robbery_2019 + TheftOver_2019)/F2020_Population_Projection)*100000,
          propertyCrime2020 = ((AutoTheft_2020 + BreakAndEnter_2020 + Robbery_2020 + TheftOver_2020)/F2020_Population_Projection)*100000)
+         
+
+#converting all character data to numeric
+TO_crime$propertyCrime2014<- as.numeric(TO_crime$propertyCrime2014)
+TO_crime$propertyCrime2015<- as.numeric(TO_crime$propertyCrime2015)
+TO_crime$propertyCrime2016<- as.numeric(TO_crime$propertyCrime2016)
+TO_crime$propertyCrime2017<- as.numeric(TO_crime$propertyCrime2017)
+TO_crime$propertyCrime2018<- as.numeric(TO_crime$propertyCrime2018)
+TO_crime$propertyCrime2019<- as.numeric(TO_crime$propertyCrime2019)
+TO_crime$propertyCrime2020<- as.numeric(TO_crime$propertyCrime2020)
+
+#finding yearly means of all neighbourhood property crime rates
+meanprop2014 <- mean(TO_crime$propertyCrime2014)
+meanprop2015 <- mean(TO_crime$propertyCrime2015)
+meanprop2016 <- mean(TO_crime$propertyCrime2016)
+meanprop2017 <- mean(TO_crime$propertyCrime2017)
+meanprop2018 <- mean(TO_crime$propertyCrime2018)
+meanprop2019 <- mean(TO_crime$propertyCrime2019)
+meanprop2020 <- mean(TO_crime$propertyCrime2020)
+
+#joining yearly means of property crime rates
+TO_prop_means <- c(meanprop2014,meanprop2015,meanprop2016,meanprop2017,meanprop2018,meanprop2019,meanprop2020)
+
+```
+
+```{r}
+	
+# loading social package
+package <- show_package("6e19a90f-971c-46b3-852c-0c48c436d1fc")
+package
+ 
+# get all resources for this package
+resources <- list_package_resources("6e19a90f-971c-46b3-852c-0c48c436d1fc")
+ 
+# identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
+datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
+ 
+# load the first datastore resource as a sample
+TO_social <- filter(datastore_resources, row_number()==1) %>% get_resource()
+
+```
+
+```{r}
+#converting rows as columns and columns as rows
+TO_social <- data.frame(t(TO_social[-1]))
+#assigning column names from data_1
+colnames(TO_social) <- TO_social[4,]
+#deleting first rows in TO_social
+TO_social <- TO_social[-c(1:4),]
 ```
 
 <!--This create a page break, i.e., starts a new page-->
