@@ -29,7 +29,9 @@ always_allow_html: true
 
 <!--Chunks of code can have names; the chunk option "include" controls whether the chunk and its output are printed in the final document-->
 ```{r load-packages, include=FALSE}
-install.packages("opendatatoronto")
+# only run the following line if the package is not already installed
+# install.packages("opendatatoronto")
+
 library(dplyr) # for accessing Toronto Open Data
 library(opendatatoronto) # for accessing Toronto Open Data
 
@@ -47,7 +49,7 @@ knitr::write_bib(file = 'packages.bib')
 ```
 
 
-```{r get-data, include = FALSE}
+```{r get-crime-data, include = FALSE}
 # get package
 package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7")
 package
@@ -60,7 +62,7 @@ datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'
  
 # load the first datastore resource as a sample
 TO_crime <- filter(datastore_resources, row_number()==1) %>% get_resource()
-TO_crime
+
 ```
 
 ```{r aggregating-property-crime-rates, include = FALSE}
@@ -100,7 +102,7 @@ TO_prop_means <- c(meanprop2014,meanprop2015,meanprop2016,meanprop2017,meanprop2
 
 ```
 
-```{r}
+```{r get-demographic-data, include = FALSE}
 	
 # loading social package
 package <- show_package("6e19a90f-971c-46b3-852c-0c48c436d1fc")
@@ -117,7 +119,7 @@ TO_social <- filter(datastore_resources, row_number()==1) %>% get_resource()
 
 ```
 
-```{r}
+```{r reformatting-demographic-data, include = FALSE}
 #converting rows as columns and columns as rows
 TO_social <- data.frame(t(TO_social[-1]))
 #assigning column names from data_1
@@ -153,12 +155,12 @@ The relationship between property crime rates and social factors were studied ac
 # Colour extracted from Viridis default palette to remain consistent with other figures produced
 ggplot(TO_crime) + 
   geom_sf(color = "black", fill = "#5DC863FF", size = .3) + 
-  theme_bw()
+  theme_minimal()
 ```
 
 # Data
 
-The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R [@R-opendatatoronto]. The first dataset reports the raw value and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. Of the seven types of crime, three are violent crimes — assault, homicide, and shootings — and four are property crimes — auto theft, breaking and entering, robbery, and theft over $5000. The latter category is the focus of this study. *write here about the dataset used for social factors*
+The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R. [@R-opendatatoronto]. Two separate datasets were used: *Neighbourhood Crime Rates* and *Neighbourhood Profiles*. The *Neighbourhood Crime Rates* dataset reports both the raw count and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. [@TorontoPoliceData]. Of the seven types of crime, the four reported types of property crime — auto theft, breaking and entering, robbery, and theft over $5000 — were the focus of this study. The *Neighbourhood Profiles* dataset reports the demographic, social, and economic findings of the 2016 census for each of Toronto's 140 neighbourhoods. [@statsCanCensus2016]. The data regarding population density, age, income, and race were utilised as the social factors of interest for this study.
 
 # Methods
 
@@ -181,8 +183,8 @@ propCrime2020 <- ggplot() +
 propCrime2020
 ```
 
-```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2020} Property crime rates by neighbourhood, 2020"}}
-# Maps of the 4 components of total property crime
+```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate-2020} Property crime rates by neighbourhood, 2020"}}
+# Maps of the 4 components of total property crime in 2020
 
 # Auto theft rate map
 auto2020 <- ggplot() +
