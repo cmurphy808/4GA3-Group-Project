@@ -14,7 +14,7 @@ author:
 - name: Zoe Spronk
   student_number: 400231466
 subject: "ENVSOCTY 4GA3"
-abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with [INSERT FACTORS HERE] by neighbourhood. Data were retrieved from The City of Toronto Open Data Portal."
+abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with population density, age, race, and income by neighbourhood. Data were retrieved from The City of Toronto Open Data Portal."
 keywords: "crime, social factors, spatial analysis"
 date: "4/22/2020"
 output:
