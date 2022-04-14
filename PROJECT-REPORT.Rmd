@@ -1,7 +1,7 @@
 ---
 title: "Examining the Correlation between Neighbourhood Property Crime Rates and Social Factors in Toronto, ON"
 #subtitle: "A subtitle"
-#thanks: "Paper submitted to complete the requirements of ENVSOCTY 4GA3 Applied Spatial Statistics; with additional edits by Antonio Paez for this version."
+#thanks: "Paper submitted as the final project of ENVSOCTY 4GA3: Applied Spatial Statistics."
 author:
 - name: Ashmitha Bala
   student_number: 400148743
@@ -27,11 +27,10 @@ bibliography: [bibliography.bib, packages.bib]
 always_allow_html: true
 ---
 
-```{r}
+```{r clear, include=FALSE}
 #clearing the environment 
 rm(list = ls())
 ```
-
 
 <!--Chunks of code can have names; the chunk option "include" controls whether the chunk and its output are printed in the final document-->
 ```{r load-packages, include=FALSE}
@@ -196,10 +195,10 @@ Insert methods here
 
 # Results
 
-#background info maps about geographic demographics in Toronto
+<!--background info maps about geographic demographics in Toronto -->
 
 
-```{r pop-density-map, echo = FALSE, fig.cap={"\\label{fig:pop-density} Population density by neighbourhood"}}
+```{r pop-density-map, echo = FALSE, fig.cap={"\\label{fig:pop-density} Population density by neighbourhood (2016)"}}
 # Map of population density
 popDensity <- ggplot() +
   geom_sf(data = TO_crime,
@@ -208,12 +207,11 @@ popDensity <- ggplot() +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "People per square km") +
-  theme_void() + ggtitle("Population Density") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+  theme_void()
 popDensity
 ```
 
-```{r low-income-percent-map, echo = FALSE, fig.cap={"\\label{fig:low-income-percent} Percentage of inhabitants who have been identified as 'Low Income After Taxation'"}}
+```{r low-income-percent-map, echo = FALSE, fig.cap={"\\label{fig:low-income-percent} Percentage of inhabitants who have been identified as 'Low Income After Taxation' by neighbourhood (2016)"}}
 # add new column w/percent of individuals who are low income
 TO_crime <- TO_crime %>%
   mutate(low_income_percent = (100/population_2016)*total_low_income)
@@ -225,12 +223,11 @@ LowIncomePercent <- ggplot() +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "Percent") +
-  theme_void() + ggtitle("Percentage of Low Income Individuals by Neighbourhood") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+  theme_void()
 LowIncomePercent
 ```
 
-```{r visible-minority-percent-map, echo = FALSE, fig.cap={"\\label{fig:visible-minority-percent} Percentage of inhabitants who belong to visible minority groups"}}
+```{r visible-minority-percent-map, echo = FALSE, fig.cap={"\\label{fig:visible-minority-percent} Percentage of inhabitants who belong to visible minority groups by neighbourhood (2016)"}}
 # add new column w/percent of individuals who are visible minorities
 TO_crime <- TO_crime %>%
   mutate(visible_minority_percent = (100/population_2016)*total_visible_minority)
@@ -242,12 +239,11 @@ visibleMinorityPercent <- ggplot() +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "Percent") +
-  theme_void() +  ggtitle("Percentage of Visible Minorities by Neighbourhood") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+  theme_void()
 visibleMinorityPercent
 ```
 
-```{r young-percent-map, echo = FALSE, fig.cap={"\\label{fig:young-percent} Percentage of inhabitants aged 15-29"}}
+```{r young-percent-map, echo = FALSE, fig.cap={"\\label{fig:young-percent} Percentage of inhabitants aged 15-29 by neighbourhood (2016)"}}
 # add new column w/percent of individuals who are aged 15 to 29
 TO_crime <- TO_crime %>%
   mutate(percent_aged_15to29 = (100/population_2016)*total_pop_aged_15to29)
@@ -259,14 +255,13 @@ youngPercent <- ggplot() +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "Percent") +
-  theme_void() + ggtitle("Percentage of Inhabitants aged 15-29 by Neighbourhood") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+  theme_void()
 youngPercent
 ```
 
-#analytical maps and figures 
+<!--Maps of property crime rates -->
 
-```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate-2020} Property crime rates by neighbourhood, 2020"}}
+```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate-2020} Four categories of property crime rates by neighbourhood (2016)"}}
 # Maps of the 4 components of total property crime in 2016
 # Auto theft rate map
 auto2016 <- ggplot() +
@@ -316,9 +311,9 @@ theftOver2016 <- ggplot() +
 grid.arrange(auto2016, break_enter2016, robbery2016, theftOver2016)
 ```
 
-#all factors are combined into 'the below map'aggregated property crim rates'
+<!--all factors are combined below into aggregated property crime rates -->
 
-```{r 2020-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2020} Aggregated property crime rates by neighbourhood, 2020"}}
+```{r 2016-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2016} Aggregated property crime rates by neighbourhood (2016)"}}
 # Map of aggregated property crime rates of 2016
 # (auto theft, breaking and entering, robbery, and theft over 5k)
 propCrime2016 <- ggplot() +
@@ -328,50 +323,71 @@ propCrime2016 <- ggplot() +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "Rate per 100k") +
-  theme_void() + ggtitle("Aggregated Property Crime Rates (2016)") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+  theme_void()
 propCrime2016
 ```
 
-```{r}
-#mapping neighbourhoods with high and low crime rates (above or below the city neighbourhood mean)
-meanprop2016
+<!--analytical maps and figures -->
+
+```{r crime-city-mean, echo = FALSE, fig.cap={"\\label{fig:crime-city-mean} Neighbourhood crime rates relative to mean crime rate of the whole of Toronto (2016)"}}
+# mapping neighbourhoods with high and low crime rates (above or below the city neighbourhood mean)
+# meanprop2016 # use to check value for ifelse
 TO_crime$propertyCrime2016TF <- ifelse(TO_crime$propertyCrime2016 > 548.8508, "TRUE", "FALSE")
-propCrime2016TF <- ggplot() + geom_sf(data = TO_crime, aes(fill = propertyCrime2016TF)) + labs(title = "Neighbourhood Crime Rates Relative to Mean Crime Rates (2016)") + labs(fill = "Crime Rate Above City Mean")
+propCrime2016TF <- ggplot() + 
+  geom_sf(data = TO_crime, 
+          aes(fill = propertyCrime2016TF),
+          colour = "white") + 
+  labs(fill = "Crime Rate Above City Mean") +
+  theme_void()
 propCrime2016TF
 ```
-```{r}
+
+```{r spatial-weight-matrix, include = FALSE}
 #creating spatial weight matrix for TO_crime data
 TO_crime.nb <- poly2nb(pl = TO_crime)
 TO_crime.w <- nb2listw(TO_crime.nb)
 ```
 
-```{r}
+```{r moran-test-crime, include = FALSE}
 #executing Moran's test to test crime rates for spatial autocorrelation
 moran.test(TO_crime$propertyCrime2016, TO_crime.w)
 # p value = 8.456e-10, therefore not random 
-moran.plot(TO_crime$propertyCrime2016, TO_crime.w)
+```
+```{r moran-plot-crime, echo = FALSE, fig.cap={"\\label{fig:moran-plot-crime} Moran's plot for spatial autocorrelation regarding neighbourhood property crime rates (2016)"}}
+moran.plot(TO_crime$propertyCrime2016, TO_crime.w, xlab = "Property Crime Rate 2016 (per 100k)", ylab = "Spatially Lagged Property Crime Rate 2016") 
 #clustered in the bottom left and top right = spatial autocorrelation. High and low crime rates are similar to their neighbours. Therefore, crime has spatial autocorrelation in Toronto. **write this better**
 ```
 
-```{r}
-#regression models of property crime rates and various social factors. All data from 2016.
-
+```{r creation-and-summary-of-regression-models, include = FALSE}
+# regression models of property crime rates and various social factors. All data from 2016.
+# income
 model1 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, data = TO_crime)
 summary(model1)
-plot(TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, main = "Property Crime Rate and Percentage of Low Income Individuals of Toronto Neighbourhoods", xlab = "Percentage of Low Income Individuals", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model1, col = "red")
- 
+# race
 model2 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$total_visible_minority, data = TO_crime)
 summary(model2)
-plot(TO_crime$propertyCrime2016 ~ TO_crime$visible_minority_percent, main = "Property Crime Rate and Percentage of Visible Minority Individuals of Toronto Neighbourhoods", xlab = "Percentage of Visible Minority Individuals", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model2, col = "red")
-
+# age
 model3 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$percent_aged_15to29, data = TO_crime)
 summary(model3)
-plot(TO_crime$propertyCrime2016 ~ TO_crime$total_pop_aged_15to29, main = "Property Crime Rate and Percentage of Youth (15-29) of Toronto Neighbourhoods", xlab = "Percentage of Youth Aged 15-29", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model3, col = "red")
-
+# population density
 model4 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$population_density, data = TO_crime)
 summary(model4)
-plot(TO_crime$propertyCrime2016 ~ TO_crime$population_density, main = "Property Crime Rate and Population Density of Toronto Neighbourhoods", xlab = "Neighbourhood Population Density", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model4, col = "red")
+```
+
+```{r crime-vs-income, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-income} Regression model comparing percentage of low income individuals and property crime rates by neighbourhood (2016)"}}
+plot(TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, xlab = "Percentage of Low Income Individuals", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model1, col = "red")
+```
+
+```{r crime-vs-race, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-race} Regression model comparing percentage of visible minority individuals and property crime rates by neighbourhood (2016)"}}
+plot(TO_crime$propertyCrime2016 ~ TO_crime$visible_minority_percent, xlab = "Percentage of Visible Minority Individuals", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model2, col = "red")
+```
+
+```{r crime-vs-age, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-age} Regression model comparing percentage of young (aged 15-29) individuals and property crime rates by neighbourhood (2016)"}}
+plot(TO_crime$propertyCrime2016 ~ TO_crime$total_pop_aged_15to29, xlab = "Percentage of Population Aged 15-29", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model3, col = "red")
+```
+
+```{r crime-vs-density, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-density} Regression model comparing population density and property crime rates by neighbourhood (2016)"}}
+plot(TO_crime$propertyCrime2016 ~ TO_crime$population_density, xlab = "Neighbourhood Population Density", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model4, col = "red")
 ```
 
 
