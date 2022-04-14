@@ -141,13 +141,15 @@ TO_crime <- TO_crime %>% arrange(Neighbourhood)
 
 # Next, extract the columns of interest from TO_social into vectors
 # Problem: pop density, income and race are not currently numeric, need to remove commas and convert
-TO_social[2:141,8] <- as.numeric(gsub(",","",TO_social[2:141,8]))
-TO_social[2:141,1129] <- as.numeric(gsub(",","",TO_social[2:141,1129]))
-TO_social[2:141,1340] <- as.numeric(gsub(",","",TO_social[2:141,1340]))
+TO_social[2:141,8] <- as.numeric(gsub(",","",TO_social[2:141,8])) #pop density
+TO_social[2:141,1129] <- as.numeric(gsub(",","",TO_social[2:141,1129])) #income
+TO_social[2:141,1340] <- as.numeric(gsub(",","",TO_social[2:141,1340])) #race
+TO_social[2:141,3] <- as.numeric(gsub(",","",TO_social[2:141,3])) #2016 population
 
 population_density <- as.numeric(TO_social[2:141, 8]) # pop density per square km
 total_low_income <- as.numeric(TO_social[2:141, 1129]) # number of identified low income individuals after tax
 total_visible_minority <- as.numeric(TO_social[2:141, 1340]) # number of inhabitants who belong to visible minority groups
+population_2016 <- as.numeric(TO_social[2:141, 3]) # population in 2016
 
 # The age data requires a bit more work
 # we are going to sum all the columns, male and female, between the ages of 15-29 into one single vector, then use that for analysis in the crime df
@@ -158,6 +160,7 @@ TO_crime$population_density <- population_density
 TO_crime$total_low_income <- total_low_income
 TO_crime$total_visible_minority <- total_visible_minority
 TO_crime$total_pop_aged_15to29 <- Young
+TO_crime$population_2016 <- population_2016
 ```
 
 <!--This create a page break, i.e., starts a new page-->
@@ -200,28 +203,28 @@ Insert methods here
 
 # Results
 
-```{r 2020-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2020} Aggregated property crime rates by neighbourhood, 2020"}}
+```{r 2016-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2016} Aggregated property crime rates by neighbourhood, 2016"}}
 # Map of aggregated property crime rates in 2020 
 # (auto theft, breaking and entering, robbery, and theft over 5k)
-propCrime2020 <- ggplot() +
+propCrime2016 <- ggplot() +
   geom_sf(data = TO_crime,
-          aes(fill = propertyCrime2020),
+          aes(fill = propertyCrime2016),
           colour = "white") +
   scale_fill_viridis(direction = -1,
                      option = "D",
                      name = "Rate per 100k") +
   theme_void()
 
-propCrime2020
+propCrime2016
 ```
 
-```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate-2020} Property crime rates by neighbourhood, 2020"}}
+```{r 2016-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate-2016} Property crime rates by neighbourhood, 2016"}}
 # Maps of the 4 components of total property crime in 2020
 
 # Auto theft rate map
-auto2020 <- ggplot() +
+auto2016 <- ggplot() +
   geom_sf(data = TO_crime,
-          aes(fill = AutoTheft_Rate2020),
+          aes(fill = AutoTheft_Rate2016),
           colour = "white") +
   scale_fill_viridis(direction = -1,
                      option = "D",
@@ -231,7 +234,7 @@ auto2020 <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # breaking and entering map
-break_enter2020 <- ggplot() +
+break_enter2016 <- ggplot() +
   geom_sf(data = TO_crime,
           aes(fill = BreakAndEnter_Rate2020),
           colour = "white") +
@@ -243,9 +246,9 @@ break_enter2020 <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # robbery map
-robbery2020 <- ggplot() +
+robbery2016 <- ggplot() +
   geom_sf(data = TO_crime,
-          aes(fill = Robbery_Rate2020),
+          aes(fill = Robbery_Rate2016),
           colour = "white") +
   scale_fill_viridis(direction = -1,
                      option = "D",
@@ -255,9 +258,9 @@ robbery2020 <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # theft over $5000 map
-theftOver2020 <- ggplot() +
+theftOver2016 <- ggplot() +
   geom_sf(data = TO_crime,
-          aes(fill = TheftOver_Rate2020),
+          aes(fill = TheftOver_Rate2016),
           colour = "white") +
   scale_fill_viridis(direction = -1,
                      option = "D",
@@ -267,7 +270,7 @@ theftOver2020 <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5)) #centers the title
 
 # presentation of maps in one figure
-grid.arrange(auto2020, break_enter2020, robbery2020, theftOver2020)
+grid.arrange(auto2016, break_enter2016, robbery2016, theftOver2016)
 ```
 
 ```{r pop-density-map, echo = FALSE, fig.cap={"\\label{fig:pop-density} Population density by neighbourhood"}}
@@ -287,7 +290,7 @@ popDensity
 ```{r low-income-percent-map, echo = FALSE, fig.cap={"\\label{fig:low-income-percent} Percentage of inhabitants who have been identified as 'Low Income After Taxation'"}}
 # add new column w/percent of individuals who are low income
 TO_crime <- TO_crime %>%
-  mutate(low_income_percent = (100/F2020_Population_Projection)*total_low_income)
+  mutate(low_income_percent = (100/population_2016)*total_low_income)
 
 # Map of low income percent
 LowIncomePercent <- ggplot() +
@@ -305,7 +308,7 @@ LowIncomePercent
 ```{r visible-minority-percent-map, echo = FALSE, fig.cap={"\\label{fig:visible-minority-percent} Percentage of inhabitants who belong to visible minority groups"}}
 # add new column w/percent of individuals who are visible minorities
 TO_crime <- TO_crime %>%
-  mutate(visible_minority_percent = (100/F2020_Population_Projection)*total_visible_minority)
+  mutate(visible_minority_percent = (100/population_2016)*total_visible_minority)
 
 # Map of visible minorty percent
 visibleMinorityPercent <- ggplot() +
@@ -323,7 +326,7 @@ visibleMinorityPercent
 ```{r young-percent-map, echo = FALSE, fig.cap={"\\label{fig:young-percent} Percentage of inhabitants aged 15-29"}}
 # add new column w/percent of individuals who are aged 15 to 29
 TO_crime <- TO_crime %>%
-  mutate(percent_aged_15to29 = (100/F2020_Population_Projection)*total_pop_aged_15to29)
+  mutate(percent_aged_15to29 = (100/population_2016)*total_pop_aged_15to29)
 
 # Map of percent aged 15 to 29
 youngPercent <- ggplot() +
