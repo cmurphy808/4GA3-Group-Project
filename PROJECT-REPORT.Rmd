@@ -39,9 +39,9 @@ rm(list = ls())
 library(dplyr) # for accessing Toronto Open Data
 library(opendatatoronto) # for accessing Toronto Open Data
 library(gridExtra) # for faceting with ggplot
-library(plotly) # interactive plotting
 library(sf) # working with simple features data
 library(spdep) # spatial regression analysis
+library(stargazer) # displays calculated statistics as tables
 library(tidyverse) # data manipulation, analysis, and visualization (incl. ggplot2, magrittr (pipe operators), etc)
 library(viridis) # For colour palettes (colour blind friendly)
 ```
@@ -52,6 +52,15 @@ library(viridis) # For colour palettes (colour blind friendly)
 knitr::write_bib(file = 'packages.bib')
 ```
 
+<!--This create a page break, i.e., starts a new page-->
+<!--\newpage-->
+
+<!-- 
+To cite references in your bibliography.bib file, use [@item] if you want it to be cited in brackets, or @item if you want it to be cited as Name (year). If you want to cite various items in brackets, separate them with semicolons [@item1; @item2]
+-->
+
+<!--Use "#" for section headers-->
+<!-- Use ** on both sides for bold text, and * on both sides for italics -->
 
 ```{r get-crime-data, include = FALSE}
 # get package
@@ -155,16 +164,6 @@ TO_crime$total_pop_aged_15to29 <- Young
 TO_crime$population_2016 <- population_2016
 ```
 
-<!--This create a page break, i.e., starts a new page-->
-<!--\newpage-->
-
-<!-- 
-To cite references in your bibliography.bib file, use [@item] if you want it to be cited in brackets, or @item if you want it to be cited as Name (year). If you want to cite various items in brackets, separate them with semicolons [@item1; @item2]
--->
-
-<!--Use "#" for section headers-->
-<!-- Use ** on both sides for bold text, and * on both sides for italics -->
-
 # Introduction
 
 Insert Introduction Here
@@ -175,7 +174,7 @@ Insert Background Here
 
 # Study area
 
-The relationship between property crime rates and social factors were studied across the census neighbourhoods of Toronto, ON, Canada (see Figure \ref{fig:toronto-neighbourhoods}). There are 140 neigbourhoods in total at the time of this study. *write more about why this area was selected*.
+The relationship between property crime rates and social factors were studied across the census neighbourhoods of Toronto, ON, Canada (see Figure \ref{fig:toronto-neighbourhoods}). There are 140 neigbourhoods in total at the time of this study. *write more about why this area was selected after background is done*.
 
 ```{r toronto-neighbourhoods, echo = FALSE, fig.cap={"\\label{fig:toronto-neighbourhoods} Census Neighbourhoods of Toronto, ON, Canada"}}
 # Map of Toronto neighbourhoods
@@ -187,11 +186,11 @@ ggplot(TO_crime) +
 
 # Data
 
-The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R. [@R-opendatatoronto]. Two separate datasets were used: *Neighbourhood Crime Rates* and *Neighbourhood Profiles*. The *Neighbourhood Crime Rates* dataset reports both the raw count and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. [@TorontoPoliceData]. Of the seven types of crime, the four reported types of property crime — auto theft, breaking and entering, robbery, and theft over $5000 — were the focus of this study. The *Neighbourhood Profiles* dataset reports the demographic, social, and economic findings of the 2016 census for each of Toronto's 140 neighbourhoods. [@statsCanCensus2016]. The data regarding population density, age, income, and race were utilised as the social factors of interest for this study.
+The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R. [@R-opendatatoronto]. Two separate datasets were used: *Neighbourhood Crime Rates* and *Neighbourhood Profiles*. The *Neighbourhood Crime Rates* dataset reports both the raw count and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. [@TorontoPoliceData]. Of the seven types of crime, the four reported types of property crime — auto theft, breaking and entering, robbery, and theft over $5000 — were the focus of this study. The *Neighbourhood Profiles* dataset reports the demographic, social, and economic findings of the 2016 census for each of Toronto's 140 neighbourhoods. [@statsCanCensus2016]. Select data regarding population density, age, income, and race were utilised as the social factors of interest for this study.
 
 # Methods
 
-Insert methods here
+This study was conducted using the open software language **R** to carry out statistical analyses of crime rates and social factors in the city of Toronto, ON, and visualise these results through the production of maps and figures. Property crime rates by neighbourhood in 2016 were used as the independent variable. This was compared against 4 other variables from 2016 census data at the neighbourhood level: population density, percentage of the population aged 15-29, percentage of the population designated as 'low income', and percentage of the population belonging to a visible minority group. The areal data of this study was analysed using choropleth mapping to visualize geographic trends, binary maps relative to a selected values, scatterplots, and regression analyses in order to evaluate the relationship between crime and selected social factors.
 
 # Results
 
@@ -358,32 +357,57 @@ moran.plot(TO_crime$propertyCrime2016, TO_crime.w, xlab = "Property Crime Rate 2
 #clustered in the bottom left and top right = spatial autocorrelation. High and low crime rates are similar to their neighbours. Therefore, crime has spatial autocorrelation in Toronto. **write this better**
 ```
 
-```{r creation-and-summary-of-regression-models, include = FALSE}
-# regression models of property crime rates and various social factors. All data from 2016.
-# income
+\newpage
+
+```{r income-regression-model, echo=FALSE, message=FALSE, results="asis"}
+# regression model of income
 model1 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, data = TO_crime)
-summary(model1)
-# race
-model2 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$total_visible_minority, data = TO_crime)
-summary(model2)
-# age
-model3 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$percent_aged_15to29, data = TO_crime)
-summary(model3)
-# population density
-model4 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$population_density, data = TO_crime)
-summary(model4)
+# produces a table of the model statistics
+stargazer(model1,
+          header = FALSE,
+          title = "Property crime rate regressed on percentage of individuals designated as 'low income'")
 ```
 
 ```{r crime-vs-income, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-income} Regression model comparing percentage of low income individuals and property crime rates by neighbourhood (2016)"}}
 plot(TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, xlab = "Percentage of Low Income Individuals", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model1, col = "red")
 ```
 
+\newpage
+
+``` {r race-regression-model, echo=FALSE, message=FALSE, results="asis"}
+# regression model of race
+model2 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$total_visible_minority, data = TO_crime)
+stargazer(model2,
+          header = FALSE,
+          title = "Property crime rate regressed on percentage of individuals who are a visible minority'")
+```
+
 ```{r crime-vs-race, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-race} Regression model comparing percentage of visible minority individuals and property crime rates by neighbourhood (2016)"}}
 plot(TO_crime$propertyCrime2016 ~ TO_crime$visible_minority_percent, xlab = "Percentage of Visible Minority Individuals", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model2, col = "red")
 ```
 
+\newpage
+
+```{r age-regression-model, echo=FALSE, message=FALSE, results="asis"}
+# regression model of age
+model3 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$percent_aged_15to29, data = TO_crime)
+stargazer(model3,
+          header = FALSE,
+          title = "Property crime rate regressed on percentage of individuals who are aged 15-29'")
+```
+
 ```{r crime-vs-age, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-age} Regression model comparing percentage of young (aged 15-29) individuals and property crime rates by neighbourhood (2016)"}}
 plot(TO_crime$propertyCrime2016 ~ TO_crime$total_pop_aged_15to29, xlab = "Percentage of Population Aged 15-29", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model3, col = "red")
+```
+
+\newpage
+
+```{r, echo=FALSE, message=FALSE, results="asis"}
+# regression model of population density
+model4 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$population_density, data = TO_crime)
+stargazer(model4,
+          header = FALSE,
+          title = "Property crime rate regressed on population density'")
 ```
 
 ```{r crime-vs-density, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-density} Regression model comparing population density and property crime rates by neighbourhood (2016)"}}
