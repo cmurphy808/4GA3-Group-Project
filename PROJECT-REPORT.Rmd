@@ -14,7 +14,7 @@ author:
 - name: Zoe Spronk
   student_number: 400231466
 subject: "ENVSOCTY 4GA3"
-abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with population density, age, race, and income by neighbourhood. Data were retrieved from The City of Toronto Open Data Portal."
+abstract: "This paper reports our analysis of property crime rates in Toronto, ON and their correlation with population density, income, race, and age by neighbourhood. Data were retrieved from The City of Toronto Open Data Portal."
 keywords: "crime, social factors, spatial analysis"
 date: "4/22/2020"
 output:
@@ -186,16 +186,87 @@ ggplot(TO_crime) +
 
 # Data
 
-The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R. [@R-opendatatoronto]. Two separate datasets were used: *Neighbourhood Crime Rates* and *Neighbourhood Profiles*. The *Neighbourhood Crime Rates* dataset reports both the raw count and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. [@TorontoPoliceData]. Of the seven types of crime, the four reported types of property crime — auto theft, breaking and entering, robbery, and theft over $5000 — were the focus of this study. The *Neighbourhood Profiles* dataset reports the demographic, social, and economic findings of the 2016 census for each of Toronto's 140 neighbourhoods. [@statsCanCensus2016]. Select data regarding population density, age, income, and race were utilised as the social factors of interest for this study.
+The data used in this study comes from the City of Toronto Open Data Portal, accessed using the **opendataportal** package in R. [@R-opendatatoronto]. Two separate datasets were used: *Neighbourhood Crime Rates* and *Neighbourhood Profiles*. The *Neighbourhood Crime Rates* dataset reports both the raw count and rates per 100,000 of seven different types of crime within the 140 neighbourhoods of Toronto. [@TorontoPoliceData]. Of the seven types of crime, the four reported types of property crime — auto theft, breaking and entering, robbery, and theft over $5000 — were the focus of this study. The *Neighbourhood Profiles* dataset reports the demographic, social, and economic findings of the 2016 census for each of Toronto's 140 neighbourhoods. [@statsCanCensus2016]. Select data regarding population density, income, race, and age were utilised as the social factors of interest for this study.
 
 # Methods
 
-This study was conducted using the open software language **R** to carry out statistical analyses of crime rates and social factors in the city of Toronto, ON, and visualise these results through the production of maps and figures. Property crime rates by neighbourhood in 2016 were used as the independent variable. This was compared against 4 other variables from 2016 census data at the neighbourhood level: population density, percentage of the population aged 15-29, percentage of the population designated as 'low income', and percentage of the population belonging to a visible minority group. The areal data of this study was analysed using choropleth mapping to visualize geographic trends, binary maps relative to a selected values, scatterplots, and regression analyses in order to evaluate the relationship between crime and selected social factors.
+This study was conducted using the open software language **R** to carry out statistical analyses of crime rates and social factors in the city of Toronto, ON, and visualise these results through the production of maps and figures. Property crime rates by neighbourhood in 2016 were used as the independent variable. This was compared against 4 other variables from 2016 census data at the neighbourhood level: population density, percentage of the population designated as 'low income', percentage of the population belonging to a visible minority group, and percentage of the population aged 15-29. The areal data of this study was analysed using choropleth mapping to visualize geographic trends, boolean maps relative to a selected values, scatterplots, and regression analyses in order to evaluate the relationship between crime and selected social factors.
 
 # Results
 
-<!--background info maps about geographic demographics in Toronto -->
+First the data of interest was visualised through choropleth maps to gain a general view of any potential trends and create a starting point for further analysis. Figure \ref{fig:split-property-crime} illustrates the rates of auto theft, breaking and entering, robbery, and theft over $5000 in Toronto's neighbourhoods in 2016, and figure \ref{fig:property-crime-rate} shows the aggregated rate of these 4 types of property crimes.
 
+\newpage
+
+```{r 2016-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate} Four categories of property crime rates by neighbourhood (2016)"}}
+# Maps of the 4 components of total property crime in 2016
+# Auto theft rate map
+auto2016 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = AutoTheft_Rate2016),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Auto Theft") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+# breaking and entering map
+break_enter2016 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = BreakAndEnter_Rate2016),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Breaking and Entering") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+# robbery map
+robbery2016 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = Robbery_Rate2016),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Robbery") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+# theft over $5000 map
+theftOver2016 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = TheftOver_Rate2016),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void() +
+  ggtitle("Theft Over $5000") +
+  theme(plot.title = element_text(hjust = 0.5)) #centers the title
+# presentation of maps in one figure
+grid.arrange(auto2016, break_enter2016, robbery2016, theftOver2016)
+```
+
+\newpage
+
+```{r 2016-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate} Aggregated property crime rates by neighbourhood (2016)"}}
+# Map of aggregated property crime rates of 2016
+# (auto theft, breaking and entering, robbery, and theft over 5k)
+propCrime2016 <- ggplot() +
+  geom_sf(data = TO_crime,
+          aes(fill = propertyCrime2016),
+          colour = "white") +
+  scale_fill_viridis(direction = -1,
+                     option = "D",
+                     name = "Rate per 100k") +
+  theme_void()
+propCrime2016
+```
+
+\newpage
+
+Figure \ref{fig:pop-density} through figure \ref{fig:young-percent} are choropleth maps denoting the social factors of interest for this study in 2016. Figure \ref{fig:pop-density} denotes population density by neighbourhood. Figure \ref{fig:low-income-percent} shows the percentage of individuals in each neighbourhood who are categorized as low income after taxation. Figure \ref{fig:visible-minority-percent} illustrates the percentage of individuals in each neighbourhood who belong to a visible minority group. Finally, Figure \ref{fig:young-percent} illustrates the percentage of individuals in each neighbourhood who are aged 15-29.
 
 ```{r pop-density-map, echo = FALSE, fig.cap={"\\label{fig:pop-density} Population density by neighbourhood (2016)"}}
 # Map of population density
@@ -258,75 +329,9 @@ youngPercent <- ggplot() +
 youngPercent
 ```
 
-<!--Maps of property crime rates -->
+\newpage
 
-```{r 2020-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate-2020} Four categories of property crime rates by neighbourhood (2016)"}}
-# Maps of the 4 components of total property crime in 2016
-# Auto theft rate map
-auto2016 <- ggplot() +
-  geom_sf(data = TO_crime,
-          aes(fill = AutoTheft_Rate2016),
-          colour = "white") +
-  scale_fill_viridis(direction = -1,
-                     option = "D",
-                     name = "Rate per 100k") +
-  theme_void() +
-  ggtitle("Auto Theft") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
-# breaking and entering map
-break_enter2016 <- ggplot() +
-  geom_sf(data = TO_crime,
-          aes(fill = BreakAndEnter_Rate2016),
-          colour = "white") +
-  scale_fill_viridis(direction = -1,
-                     option = "D",
-                     name = "Rate per 100k") +
-  theme_void() +
-  ggtitle("Breaking and Entering") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
-# robbery map
-robbery2016 <- ggplot() +
-  geom_sf(data = TO_crime,
-          aes(fill = Robbery_Rate2016),
-          colour = "white") +
-  scale_fill_viridis(direction = -1,
-                     option = "D",
-                     name = "Rate per 100k") +
-  theme_void() +
-  ggtitle("Robbery") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
-# theft over $5000 map
-theftOver2016 <- ggplot() +
-  geom_sf(data = TO_crime,
-          aes(fill = TheftOver_Rate2016),
-          colour = "white") +
-  scale_fill_viridis(direction = -1,
-                     option = "D",
-                     name = "Rate per 100k") +
-  theme_void() +
-  ggtitle("Theft Over $5000") +
-  theme(plot.title = element_text(hjust = 0.5)) #centers the title
-# presentation of maps in one figure
-grid.arrange(auto2016, break_enter2016, robbery2016, theftOver2016)
-```
-
-<!--all factors are combined below into aggregated property crime rates -->
-
-```{r 2016-property-crime, echo = FALSE, fig.cap={"\\label{fig:property-crime-rate-2016} Aggregated property crime rates by neighbourhood (2016)"}}
-# Map of aggregated property crime rates of 2016
-# (auto theft, breaking and entering, robbery, and theft over 5k)
-propCrime2016 <- ggplot() +
-  geom_sf(data = TO_crime,
-          aes(fill = propertyCrime2016),
-          colour = "white") +
-  scale_fill_viridis(direction = -1,
-                     option = "D",
-                     name = "Rate per 100k") +
-  theme_void()
-propCrime2016
-```
-
-<!--analytical maps and figures -->
+Figure \ref{fig:crime-city-mean} is a boolean map indicating which neighbourhoods have property crime rates that are above and below the citywide mean in 2016. This is useful in illustrating potential trends in the data with high-crime or low-crime neighbourhoods being clustered in some form.
 
 ```{r crime-city-mean, echo = FALSE, fig.cap={"\\label{fig:crime-city-mean} Neighbourhood crime rates relative to mean crime rate of the whole of Toronto (2016)"}}
 # mapping neighbourhoods with high and low crime rates (above or below the city neighbourhood mean)
@@ -341,6 +346,10 @@ propCrime2016TF <- ggplot() +
 propCrime2016TF
 ```
 
+\newpage
+
+Figure \ref{fig:moran-plot-crime} is a Moran scatterplot for neighbourhood property crime rate in 2016. The value of Moran's I for this dataset is 0.246 with a p-value of 6.197e-08. With these statistics, we can reject the null hypothesis of spatial independence, as Moran's I is large enough to indicate some spatial autocorrelation, and the p-value is small enough to indicate a high degree of confidence.
+
 ```{r spatial-weight-matrix, include = FALSE}
 #creating spatial weight matrix for TO_crime data
 TO_crime.nb <- poly2nb(pl = TO_crime)
@@ -350,11 +359,25 @@ TO_crime.w <- nb2listw(TO_crime.nb)
 ```{r moran-test-crime, include = FALSE}
 #executing Moran's test to test crime rates for spatial autocorrelation
 moran.test(TO_crime$propertyCrime2016, TO_crime.w)
-# p value = 8.456e-10, therefore not random 
 ```
+
 ```{r moran-plot-crime, echo = FALSE, fig.cap={"\\label{fig:moran-plot-crime} Moran's plot for spatial autocorrelation regarding neighbourhood property crime rates (2016)"}}
 moran.plot(TO_crime$propertyCrime2016, TO_crime.w, xlab = "Property Crime Rate 2016 (per 100k)", ylab = "Spatially Lagged Property Crime Rate 2016") 
 #clustered in the bottom left and top right = spatial autocorrelation. High and low crime rates are similar to their neighbours. Therefore, crime has spatial autocorrelation in Toronto. **write this better**
+```
+
+\newpage
+
+```{r, echo=FALSE, message=FALSE, results="asis"}
+# regression model of population density
+model4 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$population_density, data = TO_crime)
+stargazer(model4,
+          header = FALSE,
+          title = "Property crime rate regressed on population density")
+```
+
+```{r crime-vs-density, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-density} Regression model comparing population density and property crime rates by neighbourhood (2016)"}}
+plot(TO_crime$propertyCrime2016 ~ TO_crime$population_density, xlab = "Neighbourhood Population Density", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model4, col = "red")
 ```
 
 \newpage
@@ -379,7 +402,7 @@ plot(TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, xlab = "Percentag
 model2 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$total_visible_minority, data = TO_crime)
 stargazer(model2,
           header = FALSE,
-          title = "Property crime rate regressed on percentage of individuals who are a visible minority'")
+          title = "Property crime rate regressed on percentage of individuals who are a visible minority")
 ```
 
 ```{r crime-vs-race, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-race} Regression model comparing percentage of visible minority individuals and property crime rates by neighbourhood (2016)"}}
@@ -402,18 +425,7 @@ plot(TO_crime$propertyCrime2016 ~ TO_crime$total_pop_aged_15to29, xlab = "Percen
 
 \newpage
 
-```{r, echo=FALSE, message=FALSE, results="asis"}
-# regression model of population density
-model4 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$population_density, data = TO_crime)
-stargazer(model4,
-          header = FALSE,
-          title = "Property crime rate regressed on population density'")
-```
-
-```{r crime-vs-density, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-density} Regression model comparing population density and property crime rates by neighbourhood (2016)"}}
-plot(TO_crime$propertyCrime2016 ~ TO_crime$population_density, xlab = "Neighbourhood Population Density", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model4, col = "red")
-```
-
+Table 1 thorough table 4 summarize the determined regression models of property crime rate against the four social factors of interest, and figure \ref{fig:crime-density} through figure \ref{fig:crime-age} display these regression models in graphical form. These were used to quantify any potential relationship between property crime and select social factors. Table 1 and figure \ref{fig:crime-density} show population density regressed against property crime rate. Table 2 and figure \ref{fig:crime-income} show percentage of low income individuals regressed against property crime rate. Table 3 and figure \ref{fig:crime-race} show percentage of visible minority individuals regressed against property crime rate. Table 4 and figure \ref{fig:crime-age} show percentage of individuals aged 15-29 regressed against property crime rate.
 
 # Analysis
 
