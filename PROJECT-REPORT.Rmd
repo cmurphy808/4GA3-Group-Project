@@ -198,7 +198,7 @@ First the data of interest was visualised through choropleth maps to gain a gene
 
 \newpage
 
-```{r 2016-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime-rate} Four categories of property crime rates by neighbourhood (2016)"}}
+```{r 2016-split-crime, echo = FALSE, fig.cap={"\\label{fig:split-property-crime} Four categories of property crime rates by neighbourhood (2016)"}}
 # Maps of the 4 components of total property crime in 2016
 # Auto theft rate map
 auto2016 <- ggplot() +
