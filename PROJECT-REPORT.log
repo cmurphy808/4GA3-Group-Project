@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.6)  19 APR 2022 13:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.6)  22 APR 2022 11:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -362,127 +362,127 @@ Underfull \hbox (badness 10000) in paragraph at lines 236--254
 <PROJECT-REPORT_files/figure-latex/toronto-neighbourhoods-1.pdf, id=12, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/toronto-neighbourhoods-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/toronto-neighbourhoods-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/toronto-neighbourhoods-1.pdf  used on input line 295.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/toronto-neighbourhoods-1.pdf  used on input line 296.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [2 <./PROJECT-REPORT_files/figure-latex/toronto-neighbourhoods-1.pdf>] [3]
 <PROJECT-REPORT_files/figure-latex/2016-split-crime-1.pdf, id=25, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/2016-split-crime-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/2016-split-crime-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/2016-split-crime-1.pdf  used on input line 350.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/2016-split-crime-1.pdf  used on input line 351.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [4 <./PROJECT-REPORT_files/figure-latex/2016-split-crime-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/2016-property-crime-1.pdf, id=38, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/2016-property-crime-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/2016-property-crime-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/2016-property-crime-1.pdf  used on input line 359.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/2016-property-crime-1.pdf  used on input line 360.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [5 <./PROJECT-REPORT_files/figure-latex/2016-property-crime-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/pop-density-map-1.pdf, id=48, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/pop-density-map-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/pop-density-map-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/pop-density-map-1.pdf  used on input line 379.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/pop-density-map-1.pdf  used on input line 380.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 <PROJECT-REPORT_files/figure-latex/low-income-percent-map-1.pdf, id=49, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/low-income-percent-map-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/low-income-percent-map-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/low-income-percent-map-1.pdf  used on input line 386.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/low-income-percent-map-1.pdf  used on input line 387.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 <PROJECT-REPORT_files/figure-latex/visible-minority-percent-map-1.pdf, id=50, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/visible-minority-percent-map-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/visible-minority-percent-map-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/visible-minority-percent-map-1.pdf  used on input line 394.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/visible-minority-percent-map-1.pdf  used on input line 395.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 <PROJECT-REPORT_files/figure-latex/young-percent-map-1.pdf, id=51, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/young-percent-map-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/young-percent-map-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/young-percent-map-1.pdf  used on input line 401.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/young-percent-map-1.pdf  used on input line 402.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [6 <./PROJECT-REPORT_files/figure-latex/pop-density-map-1.pdf>] [7 <./PROJECT-REPORT_files/figure-latex/low-income-percent-map-1.pdf>] [8 <./PROJECT-REPORT_files/figure-latex/visible-minority-percent-map-1.pdf>] [9 <./PROJECT-REPORT_files/figure-latex/young-percent-map-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/crime-city-mean-1.pdf, id=89, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/crime-city-mean-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/crime-city-mean-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-city-mean-1.pdf  used on input line 416.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-city-mean-1.pdf  used on input line 417.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [10 <./PROJECT-REPORT_files/figure-latex/crime-city-mean-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/moran-plot-crime-1.pdf, id=98, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/moran-plot-crime-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/moran-plot-crime-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/moran-plot-crime-1.pdf  used on input line 432.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/moran-plot-crime-1.pdf  used on input line 433.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [11 <./PROJECT-REPORT_files/figure-latex/moran-plot-crime-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 442.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 443.
 (/Users/CJ/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 442.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 443.
 (/Users/CJ/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 442.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 443.
 (/Users/CJ/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 442.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 443.
 (/Users/CJ/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 442.
+(Font)              <10> on input line 443.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 442.
+(Font)              <7> on input line 443.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 442.
+(Font)              <5> on input line 443.
 <PROJECT-REPORT_files/figure-latex/crime-vs-density-1.pdf, id=107, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/crime-vs-density-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/crime-vs-density-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-density-1.pdf  used on input line 469.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-density-1.pdf  used on input line 470.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [12] [13 <./PROJECT-REPORT_files/figure-latex/crime-vs-density-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/crime-vs-income-1.pdf, id=124, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/crime-vs-income-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/crime-vs-income-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-income-1.pdf  used on input line 506.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-income-1.pdf  used on input line 507.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [14] [15 <./PROJECT-REPORT_files/figure-latex/crime-vs-income-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/crime-vs-race-1.pdf, id=136, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/crime-vs-race-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/crime-vs-race-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-race-1.pdf  used on input line 544.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-race-1.pdf  used on input line 545.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [16] [17 <./PROJECT-REPORT_files/figure-latex/crime-vs-race-1.pdf>]
 <PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf, id=148, 469.755pt x 325.215pt>
 File: PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf Graphic file (type pdf)
 <use PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf>
-Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf  used on input line 582.
+Package pdftex.def Info: PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf  used on input line 583.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[18] [19 <./PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf>]
-Overfull \hbox (233.91547pt too wide) in paragraph at lines 619--624
+[18] [19 <./PROJECT-REPORT_files/figure-latex/crime-vs-age-1.pdf>] [20] [21]
+Overfull \hbox (233.91547pt too wide) in paragraph at lines 798--803
 \T1/lmr/m/n/10 pulse / criminology -[] social -[] disorganization -[] theory -[] explained -[] mark -[] bond / ?fbclid = IwAR1fCDHVXX -[] JLyw5Ov5JGoMtiOl4482qjTSFOiob0s7OSmWOpYx3YaJvs7g$. 
  []
 
 
-Overfull \hbox (30.04922pt too wide) in paragraph at lines 652--657
+Overfull \hbox (30.04922pt too wide) in paragraph at lines 835--840
 \T1/lmr/m/n/10 pd / prof / details / Page . cfm ? Lang = E & amp ; Geo1 = CSD & amp ; Code1 = 3520005 & amp ; Geo2 = PR & amp ; Data = Count &
  []
 
-[20] (./PROJECT-REPORT.aux)
+[22] (./PROJECT-REPORT.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9502 strings out of 480228
- 156728 string characters out of 5894809
- 451974 words of memory out of 5000000
- 27307 multiletter control sequences out of 15000+600000
+ 9503 strings out of 480228
+ 156741 string characters out of 5894809
+ 455974 words of memory out of 5000000
+ 27308 multiletter control sequences out of 15000+600000
  507785 words of font info for 47 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,10n,63p,277b,326s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/Users/CJ/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/CJ/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/CJ/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/CJ/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/CJ/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/CJ/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
-Output written on PROJECT-REPORT.pdf (20 pages, 2504391 bytes).
+Output written on PROJECT-REPORT.pdf (22 pages, 2512964 bytes).
 PDF statistics:
- 213 PDF objects out of 1000 (max. 8388607)
- 134 compressed objects within 2 object streams
+ 219 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
