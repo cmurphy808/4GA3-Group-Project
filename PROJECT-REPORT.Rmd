@@ -402,7 +402,7 @@ plot(TO_crime$propertyCrime2016 ~ TO_crime$low_income_percent, xlab = "Percentag
 
 ``` {r race-regression-model, echo=FALSE, message=FALSE, results="asis"}
 # regression model of race
-model2 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$total_visible_minority, data = TO_crime)
+model2 <- lm(formula = TO_crime$propertyCrime2016 ~ TO_crime$visible_minority_percent, data = TO_crime)
 stargazer(model2,
           header = FALSE,
           title = "Property crime rate regressed on percentage of individuals who are a visible minority")
@@ -423,7 +423,7 @@ stargazer(model3,
 ```
 
 ```{r crime-vs-age, echo = FALSE, results='hide',fig.keep='all', fig.cap={"\\label{fig:crime-age} Regression model comparing percentage of young (aged 15-29) individuals and property crime rates by neighbourhood (2016)"}}
-plot(TO_crime$propertyCrime2016 ~ TO_crime$total_pop_aged_15to29, xlab = "Percentage of Population Aged 15-29", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model3, col = "red")
+plot(TO_crime$propertyCrime2016 ~ TO_crime$percent_aged_15to29, xlab = "Percentage of Population Aged 15-29", ylab = "Neighbourhood Property Crime Rate", pch = 16) + abline(model3, col = "red")
 ```
 
 \newpage
